@@ -2,6 +2,22 @@
 <nav>
     <ul>
         <li><a href="index.php?route=user-create">Creat user</a></li>
-        <li><a href="index.php?route=user-edit">Edit user</a></li>
     </ul>
 </nav>
+<ul>
+    <?php
+        foreach($this->data as $user)
+        {
+    ?>
+    <li>
+        <a href="index.php?route=user-edit&id=<?php echo $user['id'];?>"> 
+            <?php echo $user['username']; ?> 
+        </a>
+    </li>
+    <li>
+        <?php echo $user['email']; ?>
+    </li>
+    <?php
+        }
+    ?>
+</ul>

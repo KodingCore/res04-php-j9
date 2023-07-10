@@ -35,8 +35,11 @@ class UserManager extends AbstractManager
     
     public function editUser(User $user) : void
     {
-        $query = $this->db->prepare('UPDATE users SET email = '.$user->email.', usersname = '.$user->usersname.', password = '.$user->password.' WHERE id = '.$_SESSION['id'].';');
-        $query->execute();
+        $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        $user->setPassword($hash);
+        $query = $this->db->prepare('UPDATE users SET email = ?, username = ?, password = ? WHERE id = ?');
+        $query->execute([$user->getEmail(), $user->getUsername(), $user->getPassword(), $_SESSION['id']]);
+
     }
 
 }

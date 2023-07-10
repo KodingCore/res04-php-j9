@@ -15,8 +15,8 @@ class UserController extends AbstractController
     
     public function index()
     {
-        $this->manager->getAllUsers();
-        $this->render('index', []);
+        $allUsers = $this->manager->getAllUsers();
+        $this->render('index', $allUsers);
     }
     
     public function create(array $post = null)
@@ -25,18 +25,28 @@ class UserController extends AbstractController
         {
             $user = new User($_POST['email'], $_POST['username'], $_POST['password']);
             $this->manager->insertUser($user);
+            $allUsers = $this->manager->getAllUsers();
+            $this->render('index', $allUsers);
+        }else{
+            $allUsers = $this->manager->getAllUsers();
+            $this->render('create', $allUsers);
         }
-        $this->render('create', []);
+        
     }
     
     public function edit(array $post = null)
     {
-        
-        if(isset($_POST['email'], $_POST['usersname'], $_POST['password']))
+        if(isset($_POST['email'], $_POST['username'], $_POST['password'], $_SESSION['id']))
         {
-            $this->manager->editUser();
+            $user = new User($_SESSION['id'], $_POST['email'], $_POST['username'], $_POST['password']);
+            $this->manager->editUser($user);
+            $allUsers = $this->manager->getAllUsers();
+            $this->render('index', $allUsers);
+        }else{
+            $allUsers = $this->manager->getAllUsers();
+            $this->render('edit', $allUsers);
         }
-        $this->render('edit', []);
+        
     }
 }
 
