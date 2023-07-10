@@ -24,9 +24,11 @@ class UserManager extends AbstractManager
     
     public function insertUser(User $user) : void
     {
-        if($user->getEmail() && $user->getUsersname() && $user->getPassword())
+        var_dump("eloeleoone");
+        if($user->getEmail() && $user->getUsername() && $user->getPassword())
         {
-            $query = $this->db->prepare('INSERT INTO users (email, username, password) VALUES ('.$user->getEmail.', '.$user->getUsersname.', '.$user->getPassword.');');
+            var_dump("eloeleo");
+            $query = $this->db->prepare('INSERT INTO users (email, username, password) VALUES ('.$user->getEmail().', '.$user->getUsername().', '.$user->getPassword().');');
             $query->execute();
             $query->fetch(PDO::FETCH_ASSOC);
         }
