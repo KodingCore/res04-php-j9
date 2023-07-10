@@ -21,11 +21,8 @@ class UserController extends AbstractController
     
     public function create(array $post = null)
     {
-        
-        var_dump("ol1");
         if(isset($_POST['email'], $_POST['username'], $_POST['password']))
         {
-            var_dump("ol");
             $user = new User($_POST['email'], $_POST['username'], $_POST['password']);
             $this->manager->insertUser($user);
         }
@@ -34,11 +31,12 @@ class UserController extends AbstractController
     
     public function edit(array $post = null)
     {
-        $this->render('edit', []);
+        
         if(isset($_POST['email'], $_POST['usersname'], $_POST['password']))
         {
             $this->manager->editUser();
         }
+        $this->render('edit', []);
     }
 }
 
