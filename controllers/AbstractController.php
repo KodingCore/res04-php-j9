@@ -9,7 +9,7 @@ abstract class AbstractController
     {
         $this->template = $view;
         $this->data = $values;
-        require "layout.phtml";
+        require "views/layout.phtml";
     }
     
 }
